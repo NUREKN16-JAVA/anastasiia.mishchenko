@@ -1,94 +1,68 @@
 package ua.nure.kn.mishchenko.usermanagement;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
+public class UserTest extends TestCase {
+    
+    // Was written in November 2018
+    private static final int CURRENT_YEAR = 2018;
+    private static final int YEAR_OF_BIRTH = 1999;
+    
+    // In case b-day was earlier this month
+    private static final int ETALONE_AGE_1 = CURRENT_YEAR - YEAR_OF_BIRTH - 1;
+    private static final int DAY_OF_BIRTH_1 = 5;
+    private static final int MONTH_OF_BIRTH_1 = Calendar.DECEMBER;
+    
+    // In case b-day was earlier this year
+    private static final int ETALONE_AGE_2 = CURRENT_YEAR - YEAR_OF_BIRTH;
+    private static final int DAY_OF_BIRTH_2 = 5;
+    private static final int MONTH_OF_BIRTH_2 = Calendar.NOVEMBER;
+    
+    // In case b-day is today
+    private static final int ETALONE_AGE_3 = CURRENT_YEAR - YEAR_OF_BIRTH;
+    private static final int DAY_OF_BIRTH_3 = 11;
+    private static final int MONTH_OF_BIRTH_3 = Calendar.DECEMBER;
+    
+    // In case b-day is coming later this month
+    private static final int ETALONE_AGE_4 = CURRENT_YEAR - YEAR_OF_BIRTH - 1;
+    private static final int DAY_OF_BIRTH_4 = 21;
+    private static final int MONTH_OF_BIRTH_4 = Calendar.DECEMBER;
+    
+    // In case b-day is coming later this year
+    private static final int ETALONE_AGE_5 = CURRENT_YEAR - YEAR_OF_BIRTH - 1;
+    private static final int DAY_OF_BIRTH_5 = 11;
+    private static final int MONTH_OF_BIRTH_5 = Calendar.DECEMBER;
 
-class UserTest {
-	
-    public static final long ID = 1L;
-	public static final String FIRST_NAME = "Anastasiia";
-	public static final String LAST_NAME  = "Mishchenko";
-	public static final int    BIRTH_YEAR = 1999;
-
-	private User user;
-	
-	public static int currentDay;
-
-	@Before
-	void setUp() throws Exception {
-		
-		user = new User(ID, FIRST_NAME, LAST_NAME, new SimpleDateFormat("d-MMM-yyyy").parse("13-Jun-1999"));
-	}
-	
-
-	@Test
-	  public void testGetFullName() {
-		
-        User user = new User(ID, FIRST_NAME, LAST_NAME, null);
+    
+    private User user;
+    private Date dateOfBirthd;
+    
+    protected void setUp() throws Exception {
+        super.setUp();
+        user = new User();
+    }
+    
+    public void testGetFullName() {
+        user.setFirstName("Anastasiia");
+        user.setLastName("Mishchenko");
         assertEquals("Anastasiia, Mishchenko", user.getFullName());
     }
-	
-	//Written in November 2018
-	//In case the b-day was earlier this year
-    @Test
-    public void testGetAgeAfter() {
-    	
+    
+    public void testGetAge1() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(BIRTH_YEAR, Calendar.JUNE, 13);
-        User user = new User(ID, FIRST_NAME, LAST_NAME, calendar.getTime());
-        assertEquals(19, user.getAge());
+        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_1, DAY_OF_BIRTH_1);
+        dateOfBirthd = calendar.getTime();
+        user.setDateOfBirth(dateOfBirthd);
+        assertEquals(ETALONE_AGE_1, user.getAge());
     }
     
-    //In case b-day is coming later this year
-    @Test
-    public void simpleAgeTestBefore() {
-    	
+    public void testGetAge2() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(1999, Calendar.DECEMBER, 13);
-        User user = new User(ID, FIRST_NAME, LAST_NAME, calendar.getTime());
-        assertEquals(18, user.getAge());
-    }
-    
-   //In case b-day was earlier this month
-    @Test
-    public void ageTestSameMonthAfter() {
-    	
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1999, Calendar.NOVEMBER, 3);
-        User user = new User(ID, FIRST_NAME, LAST_NAME, calendar.getTime());
-        assertEquals(19, user.getAge());
-    }
-
-    //In case b-day is coming later this month
-    @Test
-    public void ageTestSameMonthBefore() {
-    	
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1999, Calendar.NOVEMBER, 29);
-        User user = new User(ID, FIRST_NAME, LAST_NAME, calendar.getTime());
-        assertEquals(18, user.getAge());
-    }
-    
-    //In case b-day is today
-    @Test
-    public void ageTestSameDay() {
-        Calendar currentDate = Calendar.getInstance();
-        currentDate.setTime(new Date());
-        currentDay = currentDate.get(Calendar.DATE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1999, Calendar.NOVEMBER, currentDay);
-        User user = new User(ID, FIRST_NAME, LAST_NAME, calendar.getTime());
-        assertEquals(19, user.getAge());
+        calendar.set(YEAR_OF_BIRTH, MONTH_OF_BIRTH_2, DAY_OF_BIRTH_2);
+        dateOfBirthd = calendar.getTime();
+        user.setDateOfBirth(dateOfBirthd);
+        assertEquals(ETALONE_AGE_2, user.getAge());
     }
 }
-    
-
-

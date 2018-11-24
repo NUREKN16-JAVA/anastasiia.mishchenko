@@ -4,11 +4,12 @@ package ua.nure.kn.mishchenko.usermanagement;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 public class User implements Serializable {
 	
-    private Long id;
+
+	private static final long serialVersionUID = 1L;
+	private Long id;
     private String firstName, lastName;
     private Date dateOfBirth;
 
@@ -55,29 +56,42 @@ public class User implements Serializable {
 
    
     public String getFullName(){
-        return (new StringBuilder(getFirstName())).append(",").append(getLastName()).toString();
+        return (new StringBuilder(getFirstName())).append(", ").append(getLastName()).toString();
     }
 
     public int getAge() {
-    	
         Calendar calendar = Calendar.getInstance();
-        
+        calendar.setTime(new Date());
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        
         calendar.setTime(getDateOfBirth());
-        
-        int birthYear = calendar.get(Calendar.YEAR);
-        int birthMonth = calendar.get(Calendar.MONTH);
-        int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
-        
-        int age = currentYear - birthYear;
-        
-        if(birthMonth > currentMonth | ((birthMonth == currentMonth) & (birthDay > currentDay))){
-            --age;
-        }
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        int age = currentYear - year - 1;
+        if ( (currentMonth > month) || (currentMonth == month && currentDay >= day))
+            age++; 
         return age;
     }
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (this.getId() == null && ((User) obj).getId() == null) {
+            return true;
+        }
+        return this.getId().equals(((User) obj).getId());
+    }
+    public int hashCode() {
+        if (this.getId() == null) {
+            return 0;
+        }
+        return this.getId().hashCode();
+    }
+
 }
