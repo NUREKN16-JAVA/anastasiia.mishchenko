@@ -3,6 +3,7 @@ package ua.nure.kn.mishchenko.usermanagement.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import ua.nure.kn.mishchenko.usermanagement.db.ConnectionFactory;
 
@@ -19,6 +20,14 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 
 	public ConnectionFactoryImpl() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public ConnectionFactoryImpl(Properties properties) {
+		user = properties.getProperty("connection.user");
+		password = properties.getProperty("connection.password");
+		url = properties.getProperty("connection.url");
+		driver = properties.getProperty("connection.driver");
+
 	}
 
 	public Connection createConnection() throws DatabaseException {

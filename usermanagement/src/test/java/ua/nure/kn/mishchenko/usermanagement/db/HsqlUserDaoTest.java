@@ -89,7 +89,7 @@ public class HsqlUserDaoTest extends DatabaseTestCase{
 }
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
-		connectionFactory = new ConnectionFactoryImpl();
+		connectionFactory = new ConnectionFactoryImpl("org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:db/usermanagement", "sa", "");
 		return new DatabaseConnection(connectionFactory.createConnection());
 	}
 
