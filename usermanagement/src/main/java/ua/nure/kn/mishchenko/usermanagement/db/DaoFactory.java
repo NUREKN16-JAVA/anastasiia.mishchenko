@@ -6,7 +6,7 @@ import java.util.Properties;
 public abstract class DaoFactory {
 	
 	protected static final String DAO_FACTORY = "dao.factory";
-	protected static final String USER_DAO = "dao.ua.nure.kn.mishchenko.usermanagement.db.UserDao";
+	protected static final String USER_DAO = "dao.UserDao";
 	protected static Properties properties;
 	
 	private static DaoFactory instance;
@@ -14,7 +14,7 @@ public abstract class DaoFactory {
 	static {
 		properties = new Properties();
 		try {
-			properties.load(DaoFactory.class.getClass().getClassLoader().getResourceAsStream("settings.properties"));
+			properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

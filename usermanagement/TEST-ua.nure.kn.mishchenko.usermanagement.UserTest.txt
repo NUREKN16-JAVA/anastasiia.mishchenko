@@ -1,6 +1,14 @@
 Testsuite: ua.nure.kn.mishchenko.usermanagement.UserTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,008 sec
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0,011 sec
 
-Testcase: testGetFullName took 0,002 sec
+Testcase: testGetFullName took 0,001 sec
 Testcase: testGetAge1 took 0,001 sec
+	FAILED
+expected:<18> but was:<19>
+junit.framework.AssertionFailedError: expected:<18> but was:<19>
+	at ua.nure.kn.mishchenko.usermanagement.UserTest.testGetAge1(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
 Testcase: testGetAge2 took 0 sec
